@@ -28,21 +28,30 @@ def gaus_jor(mass):
     return result
 
 
-# a2 = [2, -3, 1, 7]
-# a = [3, 0, -1, 6]
-# a1 = [4, 7, -3, 4]
-# aij = [a, a1, a2]
+def det(mat):
+    """Определитель(детерминант) матрицы"""
+    if len(mat[0]) == 2:
+        return mat[0][0] * mat[1][1] - mat[0][1] * mat[1][0]
 
-a = [0, 2, 3, 1, 0, 0]
-a1 = [1, 1, 4, 0, 1, 0]
-a2 = [2, -1, 3, 0, 0, 1]
-aij = [a, a1, a2]
+    main = 0
+    secondary = 0
 
-g = gaus_jor(aij)
-if g:
-    for _ in g:
-        print(_)
-else:
-    print(g)
+    for j in range(len(mat)):
+        value = 1
+        for i in range(len(mat)):
+            value *= mat[i][j]
+            j += 1
+            if j == len(mat):
+                j += - len(mat)
+        main += value
 
+    for j in range(len(mat)):
+        value = 1
+        for i in range(len(mat)):
+            value *= mat[i][-(j+1)]
+            j += 1
+            if j == len(mat):
+                j += - len(mat)
+        secondary += value
 
+    return main - secondary
